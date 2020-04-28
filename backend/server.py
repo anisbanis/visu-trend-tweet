@@ -1,8 +1,16 @@
 #!/bin/python3
 
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import HTTPServer, BaseHTTPRequestHandler, SimpleHTTPRequestHandler
 import sys
+import os
 import socket
+from functools import partial
+
+class CompleteHTTPServer(HTTPServer):
+    pass
+
+class CompleteHTTPRequestHandler(BaseHTTPRequestHandler):
+    pass
 
 def _get_addr_family(*address):
     # retrieve socket address
@@ -34,4 +42,6 @@ def serve(ServerClass=HTTPServer,
             sys.exit(0)
 
 if __name__ == '__main__':
-    serve(HTTPServer, BaseHTTPRequestHandler, bind='127.0.0.1')
+    serve(HTTPServer,
+          partial(SimpleHTTPRequestHandler, directory = os.path.join(os.getcwd(), '../frontend')),
+          bind='127.0.0.1')
