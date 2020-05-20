@@ -9,16 +9,15 @@ from functools import partial
 
 from .tools import progress_bar
 
-class CompleteHTTPServer(HTTPServer)
+class CompleteHTTPServer(HTTPServer):
     threaded = False
     _threads = None
     wait_for_threads = True
 
     def _process_request(self, request, client_address):
-        from time import sleep
         try:
+            print(client_address)
             self.finish_request(request, client_address)
-            sleep(10)
         except Exception:
             self.handle_error(request, client_address)
         finally:
@@ -51,9 +50,12 @@ class CompleteHTTPServer(HTTPServer)
         else:
             print('Not waiting for threads, terminating.')
 
-class CompleteHTTPRequestHandler(BaseHTTPRequestHandler):
-    handler = None
-    pass
+class CompleteHTTPRequestHandler(SimpleHTTPRequestHandler):
+    app = None
+
+    def __init__(self, app, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.app = app
 
 def _get_addr_family(*address):
     # retrieve socket address
@@ -77,7 +79,6 @@ def serve(ServerClass=HTTPServer,
 
     with ServerClass(server_address=addr,
                      RequestHandlerClass=HandlerClass) as httpd:
-
         httpd.threaded = threaded
         httpd.wait_for_threads = wait_for_threads
 
@@ -94,9 +95,10 @@ def serve(ServerClass=HTTPServer,
             sys.exit(0)
 
 def main():
-    print(os.getcwd())
     serve(CompleteHTTPServer,
-          partial(SimpleHTTPRequestHandler, directory = os.path.join(os.getcwd(), 'frontend')),
+          partial(SimpleHTTPRequestHandler, directory='frontend/src'),
+          #CompleteHTTPRequestHandler,
           bind='127.0.0.1',
           threaded = True,
-          wait_for_threads = True)
+          wait_for_threads = True,
+          )
