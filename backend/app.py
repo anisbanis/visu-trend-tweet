@@ -59,11 +59,12 @@ class Application:
         return decorator
 
     def run(self):
-        serve(CompleteHTTPServer,
-              CompleteHTTPRequestHandler,
-              bind='127.0.0.1',
-              threaded = True,
-              wait_for_threads = True)
+            serve(directory='frontend',
+                  bind='127.0.0.1',
+                  threaded = True,
+                  wait_for_threads = True,
+                  app=self
+                )
 
     def url_for(self, endpoint):
         rule = self.endpoints.get(endpoint, None)

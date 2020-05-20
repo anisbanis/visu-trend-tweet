@@ -16,7 +16,6 @@ class CompleteHTTPServer(HTTPServer):
 
     def _process_request(self, request, client_address):
         try:
-            print(client_address)
             self.finish_request(request, client_address)
         except Exception:
             self.handle_error(request, client_address)
@@ -51,11 +50,7 @@ class CompleteHTTPServer(HTTPServer):
             print('Not waiting for threads, terminating.')
 
 class CompleteHTTPRequestHandler(SimpleHTTPRequestHandler):
-    app = None
-
-    def __init__(self, app, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.app = app
+    pass
 
 def _get_addr_family(*address):
     # retrieve socket address
@@ -65,18 +60,21 @@ def _get_addr_family(*address):
     family, _, _, _, sockaddr = next(iter(info))
     return family, sockaddr
 
-def serve(ServerClass=HTTPServer,
-          HandlerClass=BaseHTTPRequestHandler,
+def serve(ServerClass=CompleteHTTPServer,
+          HandlerClass=CompleteHTTPRequestHandler,
           protocol='HTTP/1.1',
           port=8080,
+          directory='.',
           bind=None,
           threaded=False,
           wait_for_threads=False,
-          *args, **kwargs):
+          app=None):
 
     ServerClass.address_family, addr = _get_addr_family(bind, port)
+    HandlerClass = partial(HandlerClass, directory=directory)
     HandlerClass.protocol_version = protocol
-
+    HandlerClass.app = app
+                  
     with ServerClass(server_address=addr,
                      RequestHandlerClass=HandlerClass) as httpd:
         httpd.threaded = threaded
@@ -93,12 +91,3 @@ def serve(ServerClass=HTTPServer,
         except KeyboardInterrupt:
             print("\nKeyboard interrupt received, exiting.")
             sys.exit(0)
-
-def main():
-    serve(CompleteHTTPServer,
-          partial(SimpleHTTPRequestHandler, directory='frontend/src'),
-          #CompleteHTTPRequestHandler,
-          bind='127.0.0.1',
-          threaded = True,
-          wait_for_threads = True,
-          )
