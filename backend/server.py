@@ -6,6 +6,7 @@ import os
 import socket
 from threading import Thread
 from functools import partial
+from urllib.parse import urlparse, parse_qsl
 
 from .tools import progress_bar
 
@@ -50,7 +51,57 @@ class CompleteHTTPServer(HTTPServer):
             print('Not waiting for threads, terminating.')
 
 class CompleteHTTPRequestHandler(SimpleHTTPRequestHandler):
-    pass
+    def __init__(self, *args, **kwargs):
+        self.directory = kwargs.pop('directory')
+        self.app = kwargs.pop('app')
+        super().__init__(*args, **kwargs)
+
+    def _set_headers(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+
+    def do_GET(self):
+        self._set_headers()
+        url = urlparse(self.path)
+        path = url.path
+        query = dict(parse_qsl(url.query))
+        print(query)
+
+        if self.app.is_rule(path):
+            output = bytes(str(self.app._exec_rule(path, 'GET', query)), 'utf-8')
+            self.wfile.write(output)
+        else:
+            super().do_GET()
+
+    def do_HEAD(self):
+        self._set_headers()
+
+    def do_POST(self):
+        self._set_headers()
+        data_input = self.rfile.read(int(self.headers['Content-Length']))
+
+        if not 'json' in self.headers['Content-Type']:
+            self.send_response(501)
+            self.end_headers()
+            return
+
+        self.send_response(200)
+        self.end_headers()
+
+        url = urlparse(self.path)
+        path = url.path
+        query = dict(parse_qsl(url.query))
+
+        import json
+        data = json.loads(data_input)
+
+        if self.app.is_rule(path):
+            output = bytes(str(self.app._exec_rule(path,
+                                                   'POST',
+                                                   dict(query, data=data))),
+                           'utf-8')
+            self.wfile.write(output)
 
 def _get_addr_family(*address):
     # retrieve socket address
@@ -71,10 +122,9 @@ def serve(ServerClass=CompleteHTTPServer,
           app=None):
 
     ServerClass.address_family, addr = _get_addr_family(bind, port)
-    HandlerClass = partial(HandlerClass, directory=directory)
+    HandlerClass = partial(HandlerClass, directory=directory, app=app)
     HandlerClass.protocol_version = protocol
-    HandlerClass.app = app
-                  
+
     with ServerClass(server_address=addr,
                      RequestHandlerClass=HandlerClass) as httpd:
         httpd.threaded = threaded

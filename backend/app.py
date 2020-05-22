@@ -1,17 +1,21 @@
 import os
 from functools import wraps
+from inspect import getfullargspec
+
 from .server import CompleteHTTPServer
 from .server import CompleteHTTPRequestHandler
 from .server import serve
 
 class Application:
 
-    """    rules : { url -> (methods, endpoint) }    """
+    """    rules : { url -> {methods, args, endpoint} }    """
     rules = {}
     """    endpoint -> runnable    """
     endpoints = {}
     """    r_endpoint : endpoint -> url    """
     r_endpoint = {}
+
+    method = None
 
     def __init__(self,
                  app_name,
@@ -19,7 +23,10 @@ class Application:
                  port=8080,
                  host='127.0.0.1'
                  ):
-        pass
+        self.port = port
+        self.host = host
+        self.app_name = app_name
+        self.loc = serve_location
 
     def _endpoint_with_runnable(self, runnable):
         if runnable is None:
@@ -38,7 +45,7 @@ class Application:
                 self.r_endpoint[endpoint] = url_rule
             # If the endpoint has already been registered and the provided url
             # has not been allocated, we can safely bind the two together
-            self.rules[url_rule] = (methods, endpoint)
+            self.rules[url_rule] = {'methods':methods, 'endpoint': endpoint, 'args': args}
         else:
             _, c_endpoint = self.rules.get(url_rule)
             c_runnable = self.endpoints[c_endpoint]
@@ -48,15 +55,37 @@ class Application:
             if c_endpoint not in self.endpoints and c_runnable is None:
                 # If there is either no current endpoint or there is no runnable
                 # currently attached to it, we can safely add the new one
-                self.rules[url_rule] = (methods, endpoint)
+                self.rules[url_rule] = {'methods': methods, 'endpoint': endpoint, 'args': args}
                 self.endpoints[endpoint] = runnable
                 self.r_endpoint[endpoint] = url_rule
 
-    def rule(self, url):
+    def rule(self, url, methods=('GET',)):
         def decorator(f):
-            self.make_rule(url_rule=url, runnable=f)
+            self.make_rule(url_rule=url,
+                           runnable=f,
+                           methods=methods,
+                           args=getfullargspec(f).args)
             return f
         return decorator
+
+    def _exec_rule(self, rule, method, params):
+        if method in self.rules[rule]['methods']:
+            self.method = method
+
+            endpoint = self.rules[rule]['endpoint']
+            expected_params = self.rules[rule]['args']
+            if set(expected_params) != set(params):
+                raise ValueError(f'Error in call to {endpoint} : parametes mismatch\n'
+                                 f'Got {list(params)} expected {expected_params}.')
+            
+            output = self.endpoints[endpoint](**params)
+            self.method = None
+            return output
+        else:
+            raise ValueError(f'Rule {rule} does not support method {method}.')
+
+    def is_rule(self, rule):
+        return rule in self.rules
 
     def run(self):
             serve(directory='frontend',
@@ -74,7 +103,6 @@ class Application:
             raise ValueError('Unknown provided endpoint {endpoint}.')
 
     def print_state(self):
-        from pprint import pprint
-        pprint(f'{self.rules=}')
-        pprint(f'{self.endpoints=}')
-        pprint(f'{self.r_endpoint=}')
+        print('self.rules  ', self.rules)
+        print('self.endpoints', self.endpoints)
+        print('self.r_endpoint', self.r_endpoint)
