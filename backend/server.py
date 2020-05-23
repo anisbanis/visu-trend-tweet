@@ -66,7 +66,6 @@ class CompleteHTTPRequestHandler(SimpleHTTPRequestHandler):
         url = urlparse(self.path)
         path = url.path
         query = dict(parse_qsl(url.query))
-        print(query)
 
         if self.app.is_rule(path):
             output = bytes(str(self.app._exec_rule(path, 'GET', query)), 'utf-8')

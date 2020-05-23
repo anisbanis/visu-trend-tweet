@@ -1,3 +1,7 @@
+def load_file(path):
+    with open(path, 'rb') as f:
+        return f.read()
+
 def progress_bar(iterator, length=None, *args, **kwargs):
     if ((not hasattr(iterator, '__next__')) and
         (not hasattr(iterator, '__iter__'))):
