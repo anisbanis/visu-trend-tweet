@@ -1,5 +1,5 @@
 body {
-  background-image: url(./images/bg.gif);
+  background-image: url(../images/bg.gif);
   background-position: left 40px;
   background-attachment: fixed;
   background-repeat: repeat;
@@ -10,7 +10,7 @@ body {
 
 #topbar {
   background: #ffffff;
-  background-image: url(./images/twitter-logo.jpeg);
+  background-image: url(../images/twitter-logo.jpeg);
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: 25px;
@@ -207,7 +207,7 @@ form.search:before {
   border-bottom-color: rgb(41, 47, 51);
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  background-image: url(./images/mini-profile-bg.jpg);
+  background-image: url(../images/mini-profile-bg.jpg);
   border: 0px non rgb(41, 47, 51);
   border-radius: 6px;
   margin-bottom: 10px;

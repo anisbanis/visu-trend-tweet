@@ -56,11 +56,11 @@ function histogramme(y,x,ny,nx) {
 					context.fillText(x[i], x0+10 +centrer_texte + (i * largeur_barre) + 5*i, y0 + 18);
 				}
 			}
-			// tracéde trait
-			function tracer (ctx,x1,y1,x2,y2)  {
-				ctx.beginPath();
-				ctx.moveTo(x1, y1);
-				ctx.lineTo(x2, y2);
-				ctx.closePath();
-				ctx.stroke();
-			}
+// tracéde trait
+function tracer (ctx,x1,y1,x2,y2)  {
+	ctx.beginPath();
+	ctx.moveTo(x1, y1);
+	ctx.lineTo(x2, y2);
+	ctx.closePath();
+	ctx.stroke();
+}

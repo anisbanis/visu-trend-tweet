@@ -53,10 +53,3 @@ search_buttom.addEventListener("click",function(){
 	console.log(Client.query(exemple_param));
 	
 	});
-
-
-		
-	
-
-
-
