@@ -28,27 +28,27 @@ Client.query = async function (params) {
 	let strParam = "";
 	for (var p in params ) {
 		if (params.hasOwnProperty(p)) {
-			strParam += `?${p} + = ${encodeURIComponent(params[p])}`
-		}
+			strParam += "?" + p + "=" + encodeURIComponent(params[p]);
+		};
 	};
 	
-	let url = "http:/: .....tweet" + strParam
-	console.log("url :",url)
+	let url = "http:/: .....tweet"
+		+ strParam;
+		console.log("url :",url);
 		
-	try {
-		res = await Client.ajax("GET", url)
-		return res;
+		try {
+			res = await Client.ajax("GET", url);
+			return res;
+			}
+		catch (str) {
+			alert ("ERROR")
+			res= str;
 		}
-	catch (str) {
-		alert ("ERROR")
-		res= str;
-	}
-	return res;
+		return res;
 };
 
-search_buttom.addEventListener("click",
-	function(){
-	    console.log("//");
-	    let exemple_param = { "country" : search_button.value };
-	    console.log(Client.query(exemple_param));
+search_buttom.addEventListener("click",function(){
+	console.log("//");
+	let exemple_param ={"country":search_buttom.value};
+	console.log(Client.query(exemple_param));
 	});
