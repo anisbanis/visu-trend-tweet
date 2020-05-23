@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Graphe tweets</title>
+		<meta charset="utf-8" />
+		<script type="text/javascript" src="../static/hist.js"></script>
+
+		
+		<style type="text/css">
+			canvas {
+				border: 3px solid #444;
+			}
+			.grid	{
+				float:left;
+				width:600px;
+				margin:0 10px;
+				}
+			.grid h1 {font-size:25px;text-align:center;}
+			.grid p {text-align:left;}
+		</style>
+	</head>
+	
+	<body>
+		<div class="grid">
+			<h1>histogramme exemple</h1>		
+			<canvas id="diagramme" width="600" height="400"></canvas>
+		</div>
+		
+		<script>
+			// Données statistiques
+			var minutes = ['140','220','180','100'];
+			var ages = ['0 à 15 ans','16 à 35 ans','36 à 55 ans','Plus de 56 ans',];
+			var m ="minutes per s"
+			var a ="age"
+			var canvas = document.getElementById('diagramme');
+			var context = canvas.getContext('2d');
+	
+			window.addEventListener('load', histogramme(minutes,ages,m,a,context), false);
+		</script>
+	</body>
+</html>
