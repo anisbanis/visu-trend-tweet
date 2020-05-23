@@ -1,16 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="author" content="A. Bouaziz" />
-        <meta name="author" content="J.-M. Fares" />
-        <meta name="description" content="VisuTweet helps you visualize your tweets' metrics.">
-        <title>VisuTweet</title>
-        <link rel="stylesheet" href="../../static/bulma.min.css">
-    </head>
-    <body>
-        <h1>VisuTweet</h1>
-        <h2>Homepage</h2>
-        <p>Hello, dear earthing.</p>
-    </body>
+<head>
+  <title>Twitter</title>
+  <link rel="stylesheet" type="text/css" href="reset.css">
+  <link rel="stylesheet" type="text/css" href="application.css">
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <link href="./images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+   <script type="text/javascript" src="client.js"></script>
+
+</head>
+<body>
+	
+  <div id="topbar">
+    <div class='navbar'>
+      <ul>
+        <li><a href='index.html'><span><i class="fa fa-home fa-lg"></i> Home</span></a></li>
+        <li><a href='index.html'><span><i class="fa fa-bell fa-lg"></i> Notifications</span></a></li>
+        <li><a href='index.html'><span><i class="fa fa-flag fa-lg"></i> Discover</span></a></li>
+        <li><a href='index.html'><span><i class="fa fa-user fa-lg"></i> Me</span></a></li>
+      </ul>
+    </div>
+    <div id="search">
+      <form class="search">
+       <input type="text" class="search-query" placeholder="Search" />  
+       <button type="submit" class="search-button">
+        <img src="./images/search.png" alt="submit" />
+      </button>
+    </form>
+  </div>
+  <div class='navbar right'>
+    <ul>
+      <li><a href='index.html'><span><i class="fa fa-envelope fa-lg"></i> </span></a></li>
+      <li><a href='index.html'><span><i class="fa fa-gear fa-lg"></i></span></a></li>
+      <li><span><button class="compose"><i class="fa fa-edit fa-lg"></i></button></span></li>
+    </ul>
+  </div>
+
+</div>
+<div class="dashboard">
+  <div class="mini-profile">
+    <div class="mini-profile-header">
+      <a href="/mdubov" >  
+        <img class="avatar size32" src="//">
+        <b class="fullname">nom p</b>
+        <small id="username">      
+          @mdubov
+        </small>
+      </a>
+    </div>
+    <div class="profile-stats">
+      <table class="stats js-mini-profile-stats " data-user-id="14368428" summary="Profile stats">
+        <thead>
+          <tr>
+            <th>Tweets</th>
+            <th>Following</th>
+            <th>Followers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a class="js-nav" href="/mdubov" data-element-term="tweet_stats" data-nav="profile" data-is-compact="false"><strong title="445" class="js-mini-profile-stat">445</strong></a></td>
+            <td><a class="js-nav" href="/following" data-element-term="following_stats" data-nav="following" data-is-compact="false"><strong title="160" class="js-mini-profile-stat">160</strong></a></td>
+            <td><a class="js-nav" href="/followers" data-element-term="follower_stats" data-nav="followers" data-is-compact="false">  <strong title="239" class="js-mini-profile-stat">239</strong>
+            </a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="new-tweet">
+     <form class="tweet-form" method="post">
+       <textarea class="tweet-content" placeholder='Compose new tweet'></textarea>
+       <div class="new-tweet-footer">
+       <div class="tweet-buttons">
+        <a href='/'><i class="fa fa-camera fa-2x"></i></a>
+        <a href='/'><i class="fa fa-map-marker fa-2x"></i></a>
+      </div>
+      <div class="character-count">
+       140</div>
+       <button class='post-tweet'><i class="fa fa-edit fa-2x"> Tweet</i></button>
+       </form>
+     </div>
+     </div>
+   </div>
+   <div class="wtf">
+    <div class="wtf-header">
+      <h3>Who to follow</h3>
+      <ul>
+        <li>&#8226 </li>
+        <li>Refresh</li>
+        <li>&#8226 </li>
+        <li>View all</li>
+      </ul>
+    </div>
+    <div class="wtf-body">
+      <div class="wtf-each">
+        <a class="wtf-link" href="/">
+          <img src="//">
+          <span class="account-deets">
+            <b class="fullname">Nom Pr?nom</b>
+            @mdubov</span>
+          </a>
+          <span class="followed-by">
+            Followed by <a href="/">Nom pr?nom</a>
+          </span>
+          <button><i class="fa fa-plus fa-lg"> Follow</i></button>      
+        </div>
+        <div class="wtf-each">
+          <a class="wtf-link" href="/">
+            <img src="//">
+            <span class="account-deets">
+              <b class="fullname">nom p</b>
+              @mdubov</span>
+            </a>
+            <span class="followed-by">
+              Followed by <a href="/">Nom pr?nom</a>
+            </span>
+            <button><i class="fa fa-plus fa-lg"> Follow</i></button>      
+          </div>
+        </div>
+        <div class="wtf-footer">
+
+          <a href=""><img src="https://twitter.com/images/icon-address-book.png"></a>
+
+          <div class="link-list">
+            <ul>
+              <li><a href=""><span class="center">Find people you know</span></a></li>
+              <li>&#8226 </li>
+              <li><a href="">Popular accounts</a></li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="wtf trends">
+        <div class="wtf-header trends">
+          <h3>Trends</h3>
+          <ul>
+            <li>&#8226 </li>
+            <li>Change</li>
+          </ul>
+        </div>
+        <div class="wtf-body">
+          <ul>
+
+            <li><a href="">Peaches Geldof</a></li>
+            <li><a href="">#OscarTrial</a></li>
+            <li><a href="">#RuinARomCom</a></li>
+            <li><a href="">#startup</a></li>
+            <li><a href="">Maria Miller</a></li>
+            <li><a href="">London</a></li>
+            <li><a href="">Windows XP</a></li>
+          </ul>
+
+        </div>
+        
+      </div>
+      <div class="wtf dashboard-footer">
+
+       <ul>
+        <li>&copy;Twitter</li>
+        <li> <a class="Footer-link" href="/about">About</a></li>
+        <li> <a class="Footer-link" href="//support.twitter.com">Help</a></li>
+        <li> <a class="Footer-link" href="/tos">Terms</a></li>
+        <li> <a class="Footer-item"><a class="Footer-link" href="/privacy">Privacy</a></li>
+        <li> <a class="Footer-link" href="//support.twitter.com/articles/20170514">Cookies</a></li>
+        <li> <a class="Footer-link" href="//support.twitter.com/articles/20170451">Ads info</a></li>
+        <li> <a class="Footer-link" href="//about.twitter.com/press/brand-assets">Brand</a></li>
+        <li> <a class="Footer-link" href="https://blog.twitter.com">Blog</a></li>
+        <li> <a class="Footer-link" href="http://status.twitter.com">Status</a></li>
+        <li> <a class="Footer-link" href="https://about.twitter.com/products">Apps</a></li>
+        <li> <a class="Footer-link" href="/jobs">Jobs</a></li>
+        <li> <a class="Footer-link" href="//ads.twitter.com/start?ref=gl-tw-tw-twitter-advertise">Advertise</a></li>
+        <li> <a class="Footer-link" href="https://business.twitter.com">Businesses</a></li>
+        <li> <a class="Footer-link" href="//media.twitter.com">Media</a></li>
+        <li> <a class="Footer-link" href="//dev.twitter.com">Developers</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+<div class="tweet-container">
+  <div class="wtf tweets">
+    <div class="tweets-header"><h3>Tweets</h3></div>
+    <div class="wtf-each tweet">
+      <a class="wtf-link" href="/">
+        <img src="//">
+        <span class="account-deets">
+          <b class="fullname">nom p</b>
+          @mdubov</span>
+        </a>
+        <div class="tweet-body">Wow, what an amazing tweet! Bla Bla Bla</div>
+        <div class="tweet-links">
+          <span class='expand'><a href="">Expand</a></span>
+          <ul>
+            <li><a href=""><i class="fa fa-reply"></i> Reply</a></li>
+            <li><a href=""><i class="fa fa-retweet"></i> Retweet</a></li>
+            <li><a href=""><i class="fa fa-star"></i> Favourite</a></li>
+            <li><a href=""><i class="fa fa-ellipsis-h fa-1"></i> More</a></li>
+          </ul>
+        </div>
+      </div>
+    
+    </div>
+    <div class="loading"><i class="fa fa-spinner fa-spin"> </i> Loading</div>
+  </div>
+  
+  <script src='https://code.jquery.com/jquery-2.1.0.min.js'></script>
+  <script src='./twitter-clone.js'></script>
+</body>
 </html>
