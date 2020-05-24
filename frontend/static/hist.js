@@ -35,7 +35,7 @@ function histogramme(y,x,ny,nx,id) {
 					graduation = pas*i;
 					context.fillText(graduation, (x0 - 20), (y0 - i*20+4));
 				}
-				context.fillText(ny, (x0 -80), (y0 - 280));
+				context.fillText(ny, (x0 +50), (y0 - 280));
 				
 				// Axe des abscisses
 				tracer (context,x0,y0,540,y0);
@@ -44,7 +44,7 @@ function histogramme(y,x,ny,nx,id) {
 				tracer (context,530-3,y0+8,530+10,y0);
 				
 				context.textAlign = 'left';
-				context.fillText(nx, x0 + canvas.width - 260, y0 + 60);
+				context.fillText(nx,  (x0 +500), (y0+30));
 				
 				context.lineWidth = '1.0';
 				// Tracée du diagramme rectangulaire, légende de l'axe des abscisses
