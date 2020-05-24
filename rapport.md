@@ -270,6 +270,6 @@ Voici un exemple d'un histogramme pour la recherches des tweets contenant un "ye
 
 VTT est encore dans sa phase de développement la plus précoce (~60h $travail \times homme$), plusieurs améliorations sont possibles :  
 
-  - Abc
-  - Def
-  - Ghi
+  - Le frontend est légèrement austère
+  - Plus de filtres de recherche
+  - Un affichage des tweets sur une carte du monde
