@@ -88,8 +88,9 @@ class Application:
         return rule in self.rules
 
     def run(self):
-            serve(directory='frontend',
-                  bind='127.0.0.1',
+            serve(directory=self.loc,
+                  bind=self.host,
+                  port=self.port,
                   threaded = True,
                   wait_for_threads = True,
                   app=self

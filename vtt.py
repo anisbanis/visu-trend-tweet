@@ -3,15 +3,14 @@ from backend import load_file
 import pandas as pd
 import json
 
-app = App(__name__)
+app = App(__name__, host='0.0.0.0', port=8080)
 
 df = pd.read_csv("tweets.csv")
 
 @app.rule('/tweets_number', methods=('GET,'))
 def get_number_tweets():
     return len(df)
- 
-    
+
 @app.rule('/tweets_place', methods=('GET,'))
 def places_country_tweets():
     tmp = df.groupby('place_country_code').count().sort_values(by='id', ascending = False)
