@@ -49,6 +49,7 @@ class CompleteHTTPServer(HTTPServer):
                              bar_length=50)
         else:
             print('Not waiting for threads, terminating.')
+    
 
 class CompleteHTTPRequestHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
@@ -101,6 +102,9 @@ class CompleteHTTPRequestHandler(SimpleHTTPRequestHandler):
                                                    dict(query, data=data))),
                            'utf-8')
             self.wfile.write(output)
+    def end_headers(self):
+        self.send_header('Access-Control-Allow-Origin', '*')
+        super().end_headers()
 
 def _get_addr_family(*address):
     # retrieve socket address

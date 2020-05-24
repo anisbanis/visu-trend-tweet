@@ -1,14 +1,14 @@
-function histogramme(y,x,ny,nx) {
-				var canvas = document.getElementById('diagramme');
+function histogramme(y,x,ny,nx,id) {
+				var canvas = document.getElementById(id);
 				var context = canvas.getContext('2d');
 				
-			
+			  
 				// Origine du repère
-				context.translate(150,320);
+				context.translate(32,350);
 				var x0 = 0;
 				var y0 = 0;
 				
-				var largeur_barre = 90;
+				var largeur_barre = 45;
 				context.lineWidth = '1.0';
 				
 				// Couleur et largeur du trait
@@ -24,19 +24,24 @@ function histogramme(y,x,ny,nx) {
 				context.textAlign = 'center';
 				context.font = '9pt Tahoma';
 				var graduation = 0;
-				var pas = 20;
-				for (var i=0; i<13; i++) {
+				var pas = Math.trunc(Math.max(...y)/14)+1;
+				console.log("ss");
+				console.log(pas);
+				console.log(Math.max(y));
+				console.log(pas);
+				
+				for (var i=0; i<15; i++) {
 					tracer (context,x0-3,y0-20*(i),x0+3,y0-20*(i));
 					graduation = pas*i;
-					context.fillText(graduation, (x0 - 20), (y0 - graduation+4));
+					context.fillText(graduation, (x0 - 20), (y0 - i*20+4));
 				}
 				context.fillText(ny, (x0 -80), (y0 - 280));
 				
 				// Axe des abscisses
-				tracer (context,x0,y0,420,y0);
+				tracer (context,x0,y0,540,y0);
 				// Flèche
-				tracer (context,410-3,y0-8,410+10,y0);
-				tracer (context,410-3,y0+8,410+10,y0);
+				tracer (context,530-3,y0-8,530+10,y0);
+				tracer (context,530-3,y0+8,530+10,y0);
 				
 				context.textAlign = 'left';
 				context.fillText(nx, x0 + canvas.width - 260, y0 + 60);
@@ -44,9 +49,10 @@ function histogramme(y,x,ny,nx) {
 				context.lineWidth = '1.0';
 				// Tracée du diagramme rectangulaire, légende de l'axe des abscisses
 				for (i=0; i<y.length; i++) {
-					context.fillStyle = 'grey';				
+				  var echelle = pas 
+					context.fillStyle = 'blue';				
 					context.beginPath();
-					context.rect(x0+10 + (i * largeur_barre) +5*i, y0 -1 - y[i], largeur_barre, y[i]);
+					context.rect(x0+10 + (i * largeur_barre) +5*i, y0 -1 - y[i]/echelle*20, largeur_barre, y[i]/echelle*20);
 					context.closePath();
 					context.stroke();
 					context.fill();
