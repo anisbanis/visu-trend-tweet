@@ -46,6 +46,11 @@ def search(p):
     ville = tmp.index.tolist()[:10]
     rep={}
     idx=0
+    """
+    h0=df.loc[df["hashtag_0"].notnull()].groupby('hashtag_0').count().sort_values(by='id', ascending = False) 
+    h1=df.loc[df["hashtag_1"].notnull()].groupby('hashtag_1').count().sort_values(by='id', ascending = False) 
+    h2=df.loc[df["hashtag_2"].notnull()].groupby('hashtag_2').count().sort_values(by='id', ascending = False)
+    """
     for v in ville:
         rep[f'{v}']=places_count[idx]
         idx+=1
