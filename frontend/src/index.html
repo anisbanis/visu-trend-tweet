@@ -3,8 +3,6 @@
 <head>
   <title>Twitter</title>
   <link rel="stylesheet" type="text/css" href="../static/reset.css">
-  <link rel="stylesheet" type="text/css" href="../static/application.css">
-  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
   <meta charset="utf-8" />
 
    <script type="text/javascript" src="../static/client.js"></script>
@@ -30,45 +28,31 @@
     <canvas id="diagramme" width="600" height="400"></canvas>
   </div>
   <div id="topbar">
-    <div class='navbar'>
-      <ul>
-        <li><a href='index.html'><span><i class="fa fa-home fa-lg"></i> Home</span></a></li>
-        <li><a href='index.html'><span><i class="fa fa-bell fa-lg"></i> Notifications</span></a></li>
-        <li><a href='index.html'><span><i class="fa fa-flag fa-lg"></i> Discover</span></a></li>
-        <li><a href='index.html'><span><i class="fa fa-user fa-lg"></i> Me</span></a></li>
-      </ul>
-    </div>
-    <div id="search">
-      <form class="search">
-       <input type="text" id="search-q"  class="search-query" placeholder="Search" />  
-       <button type="submit" id="search-b" class="search-button">
-      </button>
-    </form>
-  </div>
-  <div class='navbar right'>
-    <ul>
-      <li><a href='index.html'><span><i class="fa fa-envelope fa-lg"></i> </span></a></li>
-      <li><a href='index.html'><span><i class="fa fa-gear fa-lg"></i></span></a></li>
-      <li><span><button class="compose"><i class="fa fa-edit fa-lg"></i></button></span></li>
-    </ul>
-  </div>
+    
+  <div class='navbar'>
+    
+    <div>
+    <input type="text" id="myInput" placeholder="Search.." name="search">
 
-  <script type="text/javascript">    
-  window.addEventListener("load", function () {
-
-  search_bar=document.getElementById("search");
-  let text_input=search_bar.getElementsByClassName("search-query");
-  console.log(text_input);
+    <button id="myb" onclick="recherche()"></button>
+    <div id="result"></div>
+  </div>
+  </div>
  
-  let submit_buttom=search_bar.getElementsByClassName("search-button");
-  console.log(submit_buttom);
-  text_input.addEventListener("search",recherche());
+  
+  <script type="text/javascript"defer>    
+  
+
+
+
   
   //let exemple_param ={"country":"France"};
   function recherche() {
+    let text_input=document.getElementById("myInput");
+    let txt=text_input.value.toLowerCase()
+  if(txt!=null){
   let q//=Client.query("tweets_number");
-  let text_input=search_bar.getElementsByClassName("search-query");
-  let txt=text_input.value
+  
   console.log("texxxt");
   console.log(txt);
   q=Client.query("/search?p="+txt);
@@ -85,10 +69,13 @@
   let x=Object.keys(repartition)
   let y=Object.values(repartition);
   
+  var div = document.getElementById("result");
+  var newContent = document.createTextNode("         Total number des tweets: "+long);
+  div.appendChild(newContent);
   histogramme(y,x,"Tweets number","Country","diagramme"); 
   
-  });}
-});
+  });}};
+
 
     
 
