@@ -1,10 +1,10 @@
 body {
-  background-image: url(../images/bg.gif);
+  /*background-image: url(../images/bg.gif);*/
   background-position: left 40px;
   background-attachment: fixed;
   background-repeat: repeat;
   background-repeat: no-repeat;
-  background-color: #352726;
+  background-color: #ffffff;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 

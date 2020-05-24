@@ -1,8 +1,8 @@
 var Client = {};
-
+/*
 let search_query = document.getElementByID("search_query");
-let search_button = docuement.getElementByID("search_button");
-
+let search_button = document.getElementByID("search_button");
+*/
 
 console.log('Client');
 
@@ -24,7 +24,7 @@ Client.ajax = function (method, url) {
     })
 };
 
-Client.query = async function (params) {
+Client.query = async function (method,params="") {
 	let strParam = "";
 	for (var p in params ) {
 		if (params.hasOwnProperty(p)) {
@@ -32,8 +32,11 @@ Client.query = async function (params) {
 		};
 	};
 	
-	let url = "http:/: .....tweet"
-		+ strParam;
+	let url = "http://127.0.0.1:8080"
+		+ method;
+		if (params!=""){
+		  url=url + "/"+ strParam;
+		}
 		console.log("url :",url);
 		
 		try {
@@ -46,9 +49,10 @@ Client.query = async function (params) {
 		}
 		return res;
 };
-
+/*
 search_buttom.addEventListener("click",function(){
 	console.log("//");
 	let exemple_param ={"country":search_buttom.value};
 	console.log(Client.query(exemple_param));
 	});
+*/
