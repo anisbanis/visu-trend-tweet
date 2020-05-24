@@ -6,4 +6,4 @@ VTT is a small webapp enabling users to visualize their tweets in a nice and fun
 
 1. Clone the repo  
 2. `cd visu-trend-tweet`
-3. `python -m backend`
+3. `python vtt.py` (`python` should designate a python3 interpreter)
