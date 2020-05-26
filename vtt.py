@@ -3,24 +3,7 @@ from backend import load_file
 import pandas as pd
 import json
 
-app = App(__name__)
-
-@app.rule('/api')
-def index():
-    return {"abc":1}
-
-
-@app.rule('/prune', methods=('GET','POST'))
-def prune(p1, p2, data=None):
-    if app.method == 'POST':
-        print(data)
-        return '<h1>Got it</h1>'
-    else:
-        return '<h1>Hello {p1} and {p2}</h1>'
-    
-
-
-
+app = App(__name__, host='0.0.0.0', port=8080)
 
 df = pd.read_csv("tweets.csv")
 
@@ -67,7 +50,5 @@ def tweet_pos(txt):
     tmp=df.loc[df['text'].str.contains (txt)]
     pos=tmp[['longitude','latitude']].values.tolist()
     return json.dumps(pos)
-    
-
 
 app.run()

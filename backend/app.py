@@ -77,7 +77,7 @@ class Application:
             if set(expected_params) != set(params):
                 raise ValueError(f'Error in call to {endpoint} : parametes mismatch\n'
                                  f'Got {list(params)} expected {expected_params}.')
-            
+
             output = self.endpoints[endpoint](**params)
             self.method = None
             return output
@@ -88,8 +88,9 @@ class Application:
         return rule in self.rules
 
     def run(self):
-            serve(directory='frontend',
-                  bind='127.0.0.1',
+            serve(directory=self.loc,
+                  bind=self.host,
+                  port=self.port,
                   threaded = True,
                   wait_for_threads = True,
                   app=self
