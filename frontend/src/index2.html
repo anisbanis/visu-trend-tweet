@@ -1,40 +1,112 @@
 ﻿<!DOCTYPE html>
-<html>
-	<head>
-		<title>Graphe tweets</title>
-		<meta charset="utf-8" />
-		<script type="text/javascript" src="../static/hist.js"></script>
+<html lang="en">
+<head>
+  <title>Twitter</title>
+  <meta charset="utf-8" />
 
-		
-		<style type="text/css">
-			canvas {
-				border: 3px solid #444;
-			}
-			.grid	{
-				float:left;
-				width:600px;
-				margin:0 10px;
-				}
-			.grid h1 {font-size:25px;text-align:center;}
-			.grid p {text-align:left;}
-		</style>
-	</head>
-	
-	<body>
-		<div class="grid">
-			<h1>histogramme exemple</h1>		
-			<canvas id="diagramme" width="600" height="400"></canvas>
-		</div>
-		
-		<script>
-			// Données statistiques
-			var minutes = ['140','220','180','100'];
-			var ages = ['0 à 15 ans','16 à 35 ans','36 à 55 ans','Plus de 56 ans',];
-			var m ="minutes per s"
-			var a ="age"
-			var canvas = document.getElementById('diagramme');
-			var context = canvas.getContext('2d');
-	
-			window.addEventListener('load', histogramme(minutes,ages,m,a,context), false);
-		</script>
-	</body>
+   <script type="text/javascript" src="../static/client.js"></script>
+   <script type="text/javascript" src="../static/carte.js"></script>
+
+   <style type="text/css">
+    canvas {
+      border: 3px solid #444;
+    }
+    .grid	{
+      float:left;
+      width:600px;
+      margin:0 10px;
+      }
+    .grid h1 {font-size:25px;text-align:center;}
+    .grid p {text-align:left;}
+  </style>
+
+</head>
+<body onload="draw();">
+  <div class="grid">
+    <h1>Tweets Map</h1>		
+    <canvas id="carte" width="1600" height="800">
+	</canvas>
+  </div>
+  <div id="topbar">
+    
+  <div class='navbar'>
+    
+    <div>
+    <input type="text" id="myInput" placeholder="Search.." name="search">
+
+    <button id="myb" type="submit" value="search" onclick="recherche()">search</button>
+    <div id="result"></div>
+  </div>
+  </div>
+ 
+  
+  <script type="text/javascript"defer>    
+  
+
+
+
+  
+  //let exemple_param ={"country":"France"};
+ function recherche() {
+    let text_input=document.getElementById("myInput");
+    let txt=text_input.value.toLowerCase()
+  if(txt!=null){
+  let q//=Client.query("tweets_number");
+  
+  console.log("texxxt");
+  console.log(txt);
+  q=Client.query("/tweet_pos?txt="+txt);
+  console.log(q);
+  q.then((value) => {
+  
+  console.log(value);
+  values=JSON.parse(value);
+  console.log(values[0]);
+  create_points(values)
+  /*
+  let long=values.l
+  console.log(long);
+  let repartition=values.rep
+
+
+  let x=Object.keys(repartition)
+  let y=Object.values(repartition);
+  
+  var div = document.getElementById("result");
+  if (div.childNodes[0]){
+  div.removeChild(div.childNodes[0]);}
+  var newContent = document.createTextNode("         Total number des tweets: "+long);
+  div.appendChild(newContent);
+  histogramme(y,x,"Tweets number","Country","diagramme"); 
+  */
+  });}};
+
+
+    
+
+  
+
+
+ /* var values = JSON.parse(value);
+
+  */
+  
+
+  
+
+
+
+    
+    
+  
+  
+  
+  
+  </script>
+  
+
+</div>
+
+
+</body>
+</html>

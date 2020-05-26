@@ -1,10 +1,20 @@
+var cpt=0;
 function histogramme(y,x,ny,nx,id) {
 				var canvas = document.getElementById(id);
 				var context = canvas.getContext('2d');
+		  	
+
+
 				
 			  
 				// Origine du repère
-				context.translate(32,350);
+				if(cpt ==0){context.translate(32,350);cpt++;}
+				// restorer un contexte vide 
+				context.save();
+        context.setTransform(1, 0, 0, 1, 0, 0);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.restore();
+        
 				var x0 = 0;
 				var y0 = 0;
 				

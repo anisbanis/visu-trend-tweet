@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <title>Twitter</title>
-  <link rel="stylesheet" type="text/css" href="../static/reset.css">
   <meta charset="utf-8" />
 
    <script type="text/javascript" src="../static/client.js"></script>
@@ -24,7 +23,7 @@
 </head>
 <body>
   <div class="grid">
-    <h1>histogramme exemple</h1>		
+    <h1>Tweets number/country</h1>		
     <canvas id="diagramme" width="600" height="400"></canvas>
   </div>
   <div id="topbar">
@@ -34,7 +33,7 @@
     <div>
     <input type="text" id="myInput" placeholder="Search.." name="search">
 
-    <button id="myb" onclick="recherche()"></button>
+    <button id="myb" type="submit" value="search" onclick="recherche()">search</button>
     <div id="result"></div>
   </div>
   </div>
@@ -70,6 +69,8 @@
   let y=Object.values(repartition);
   
   var div = document.getElementById("result");
+  if (div.childNodes[0]){
+  div.removeChild(div.childNodes[0]);}
   var newContent = document.createTextNode("         Total number des tweets: "+long);
   div.appendChild(newContent);
   histogramme(y,x,"Tweets number","Country","diagramme"); 
